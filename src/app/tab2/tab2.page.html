@@ -1,9 +1,24 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Tab Two
+      {{title}}
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content>
+  <ion-button expand="block" (click)="createPost()">Create Post</ion-button>
+
+
+  <ion-list>
+      <ion-item-sliding *ngFor = "let post of dashboardPosts; let i = index">
+        <ion-item>
+          <ion-label>{{post.name}}</ion-label>
+        </ion-item>
+        <ion-item-options side="end">
+          <ion-item-option type="button" (click) = "removePost(post, i)"><ion-icon name="trash"></ion-icon></ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  
+</ion-content>
