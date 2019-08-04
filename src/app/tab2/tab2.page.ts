@@ -13,6 +13,7 @@ import { ToastController } from '@ionic/angular';
 export class Tab2Page {
 
   title = "Doggy Dashboard"
+  author = "Username"
   dashboardPosts = []
 
   constructor(public alertController: AlertController, public toastController: ToastController) {}
@@ -25,7 +26,7 @@ export class Tab2Page {
         {
           name: 'name',
           type: 'text',
-          placeholder: 'Tell your fellow dog-lovers something...'
+          placeholder: 'Tell us something!'
         },
       ],
       buttons: [
@@ -49,6 +50,39 @@ export class Tab2Page {
     await alert.present();
   }
 
+  async editPostPrompt(post, index) {
+    const alert = await this.alertController.create({
+      header: "Edit Post",
+      cssClass: "createPost",
+      inputs: [
+        {
+          name: 'name',
+          type: 'text',
+          placeholder: 'Tell us something!',
+          value: post.name
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Ok',
+          handler: (post) => {
+            console.log('Confirm Ok', post);
+            this.dashboardPosts[index] = post;
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
   async removePost(post, index) {
     const toast = await this.toastController.create({
       message: 'Removing post - ' + post.name + "...",
@@ -59,6 +93,15 @@ export class Tab2Page {
     this.dashboardPosts.splice(index, 1);
   }
 
+  async editPost(post, index) {
+    const toast = await this.toastController.create({
+      message: 'Removing post - ' + post.name + "...",
+      duration: 2000
+    });
+    toast.present();
+
+    this.editPostPrompt(post, index);
+  }
 
 
   //these go into constructor once you get firebase working (private firebase: Firebase, private firebaseMessaging: FirebaseMessaging, private fcm: FCM)

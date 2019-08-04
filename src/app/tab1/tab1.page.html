@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="light">
     <ion-title>
       {{title}}
     </ion-title>
@@ -22,11 +22,15 @@
     <ion-list>
         <ion-item-sliding *ngFor = "let dog of myDogs; let i = index">
           <ion-item>
+            <ion-avatar slot="start">
+              <img src="/assets/icon/dog.jpg">
+            </ion-avatar>
             <ion-label>{{dog.name}}</ion-label>
-            <p>{{dog.breed}}<br>{{dog.gender}}<br>{{dog.size}}<br>{{dog.age}}</p>
+            <p text-wrap>Breed: {{dog.breed}}<br>Gender: {{dog.gender}}<br>Size: {{dog.size}}<br>Age: {{dog.age}}<br>About me: {{dog.about}}</p>
           </ion-item>
           <ion-item-options side="end">
-            <ion-item-option type="button" (click) = "presentToast(dog, i)"><ion-icon name="trash"></ion-icon></ion-item-option>
+            <ion-item-option type="button" (click) = "editDog(dog, i)" ion-button color="warning"><ion-icon name="create"></ion-icon>Edit</ion-item-option>
+            <ion-item-option type="button" (click) = "removeDog(dog, i)" ion-button color="danger"><ion-icon name="trash"></ion-icon>Remove</ion-item-option>
           </ion-item-options>
         </ion-item-sliding>
       </ion-list>

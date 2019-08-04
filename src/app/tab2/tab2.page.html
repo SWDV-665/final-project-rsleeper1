@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="light">
     <ion-title>
       {{title}}
     </ion-title>
@@ -13,10 +13,12 @@
   <ion-list>
       <ion-item-sliding *ngFor = "let post of dashboardPosts; let i = index">
         <ion-item>
-          <ion-label>{{post.name}}</ion-label>
+          <ion-label text-wrap>{{post.name}}</ion-label>
+          <p>{{author}}</p>
         </ion-item>
         <ion-item-options side="end">
-          <ion-item-option type="button" (click) = "removePost(post, i)"><ion-icon name="trash"></ion-icon></ion-item-option>
+          <ion-item-option type="button" (click) = "editPost(post, i)" ion-button color="warning"><ion-icon name="create"></ion-icon>Edit</ion-item-option>
+          <ion-item-option type="button" (click) = "removePost(post, i)" ion-button color="danger"><ion-icon name="trash"></ion-icon>Remove</ion-item-option>
         </ion-item-options>
       </ion-item-sliding>
     </ion-list>

@@ -25,6 +25,17 @@ export class Tab1Page {
   removeDog(dog, index){
     this.presentToast(dog, index);
   }
+
+
+  async editDog(dog, index) {
+    const toast = await this.toastController.create({
+      message: 'Editing dog - ' + dog.name + "...",
+      duration: 2000
+    });
+    toast.present();
+    this.editDogPrompt(dog, index);
+
+  }
     
     async presentAlertPrompt() {
       const alert = await this.alertController.create({
@@ -52,8 +63,13 @@ export class Tab1Page {
           },
           {
             name: 'age',
-            type: 'text',
+            type: 'number',
             placeholder: 'Age'
+          },
+          {
+            name: 'about',
+            type: 'text',
+            placeholder: 'About your dog...'
           },
         ],
         buttons: [
@@ -69,6 +85,67 @@ export class Tab1Page {
             handler: (dog) => {
               console.log('Confirm Ok', dog);
               this.myDogs.push(dog);
+            }
+          }
+        ]
+      });
+  
+      await alert.present();
+    }
+
+    async editDogPrompt(dog, index) {
+      const alert = await this.alertController.create({
+        header: 'Edit Dog',
+        inputs: [
+          {
+            name: 'name',
+            type: 'text',
+            placeholder: 'Name',
+            value: dog.name
+          },
+          {
+            name: 'breed',
+            type: 'text',
+            placeholder: 'Breed',
+            value: dog.breed
+          },
+          {
+            name: 'gender',
+            type: 'text',
+            placeholder: 'Male/Female',
+            value: dog.gender
+          },
+          {
+            name: 'size',
+            type: 'text',
+            placeholder: 'Small/Medium/Large',
+            value: dog.size
+          },
+          {
+            name: 'age',
+            type: 'text',
+            placeholder: 'Age',
+            value: dog.age
+          },
+          {
+            name: 'about',
+            type: 'text',
+            placeholder: 'About your dog...'
+          },
+        ],
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: () => {
+              console.log('Confirm Cancel');
+            }
+          }, {
+            text: 'Ok',
+            handler: (dog) => {
+              console.log('Confirm Ok', dog);
+              this.myDogs[index] = dog;
             }
           }
         ]
