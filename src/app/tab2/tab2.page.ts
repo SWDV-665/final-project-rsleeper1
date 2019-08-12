@@ -95,7 +95,7 @@ export class Tab2Page {
 
   async editPost(post, index) {
     const toast = await this.toastController.create({
-      message: 'Removing post - ' + post.name + "...",
+      message: 'Editing post - ' + post.name + "...",
       duration: 2000
     });
     toast.present();

@@ -7,33 +7,44 @@
 </ion-header>
 
 <ion-content>
-    <ion-button (click) = "addDog()">Add Dog</ion-button>
+  <ion-button (click)="addDog()">Add Dog</ion-button>
 
-    <img [src]="currentImage" *ngIf="currentImage">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6" *ngFor="let photo of photoService.photos">
+        <img [src]="photo.data" />
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
-    <ion-fab vertical="bottom" horizontal="center" slot="fixed">
-        <ion-fab-button (click)="takePicture()">
-          <ion-icon name="camera"></ion-icon>
-        </ion-fab-button>
-    </ion-fab>
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button (click)="photoService.takePicture()">
+      <ion-icon name="camera"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
 
 
-    <ion-list>
-        <ion-item-sliding *ngFor = "let dog of myDogs; let i = index">
-          <ion-item>
-            <ion-avatar slot="start">
-              <img src="/assets/icon/dog.jpg">
-            </ion-avatar>
-            <ion-label>{{dog.name}}</ion-label>
-            <p text-wrap>Breed: {{dog.breed}}<br>Gender: {{dog.gender}}<br>Size: {{dog.size}}<br>Age: {{dog.age}}<br>About me: {{dog.about}}</p>
-          </ion-item>
-          <ion-item-options side="end">
-            <ion-item-option type="button" (click) = "editDog(dog, i)" ion-button color="warning"><ion-icon name="create"></ion-icon>Edit</ion-item-option>
-            <ion-item-option type="button" (click) = "removeDog(dog, i)" ion-button color="danger"><ion-icon name="trash"></ion-icon>Remove</ion-item-option>
-          </ion-item-options>
-        </ion-item-sliding>
-      </ion-list>
+  <ion-list>
+    <ion-item-sliding *ngFor="let dog of tab1Service.myDogs; let i = index">
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="/assets/icon/dog.jpg">
+        </ion-avatar>
+        <ion-label>{{dog.name}}</ion-label>
+        <p text-wrap>Breed: {{dog.breed}}<br>Gender: {{dog.gender}}<br>Size: {{dog.size}}<br>Age: {{dog.age}}<br>About
+          me: {{dog.about}}</p>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option type="button" (click)="editDog(dog, i)" ion-button color="warning">
+          <ion-icon name="create"></ion-icon>Edit
+        </ion-item-option>
+        <ion-item-option type="button" (click)="removeDog(dog, i)" ion-button color="danger">
+          <ion-icon name="trash"></ion-icon>Remove
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
 
 
 </ion-content>

@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
-import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { Tab1Service } from '../tab1.service';
+import { Tab1InputService } from '../tab1-input.service';
+import { PhotoService } from '../services/photo.service';
+import { Storage } from '@ionic/storage';
+
 
 @Component({
   selector: 'app-tab1',
@@ -11,15 +15,22 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 export class Tab1Page {
 
   title = "My Dogs"
-  myDogs = []
-  currentImage: any;
+  
 
+  constructor(public alertController: AlertController, public toastController: ToastController, public tab1Service: Tab1Service, public tab1InputService: Tab1InputService, public photoService: PhotoService, private storage: Storage) {}
 
-  constructor(public alertController: AlertController, public toastController: ToastController, private camera: Camera) {}
+  ngOnInit() {
+    this.photoService.loadSaved();
+    this.tab1Service.loadDogs();
+  }
+
+  loadDogs(){
+    return this.tab1Service.loadDogs();
+  }
 
 
   addDog(){
-    this.presentAlertPrompt();
+    this.tab1InputService.dogPrompt();
   }
 
   removeDog(dog, index){
@@ -33,126 +44,11 @@ export class Tab1Page {
       duration: 2000
     });
     toast.present();
-    this.editDogPrompt(dog, index);
+    this.tab1InputService.dogPrompt(dog, index);
 
   }
     
-    async presentAlertPrompt() {
-      const alert = await this.alertController.create({
-        header: 'New Dog',
-        inputs: [
-          {
-            name: 'name',
-            type: 'text',
-            placeholder: 'Name'
-          },
-          {
-            name: 'breed',
-            type: 'text',
-            placeholder: 'Breed'
-          },
-          {
-            name: 'gender',
-            type: 'text',
-            placeholder: 'Male/Female'
-          },
-          {
-            name: 'size',
-            type: 'text',
-            placeholder: 'Small/Medium/Large'
-          },
-          {
-            name: 'age',
-            type: 'number',
-            placeholder: 'Age'
-          },
-          {
-            name: 'about',
-            type: 'text',
-            placeholder: 'About your dog...'
-          },
-        ],
-        buttons: [
-          {
-            text: 'Cancel',
-            role: 'cancel',
-            cssClass: 'secondary',
-            handler: () => {
-              console.log('Confirm Cancel');
-            }
-          }, {
-            text: 'Ok',
-            handler: (dog) => {
-              console.log('Confirm Ok', dog);
-              this.myDogs.push(dog);
-            }
-          }
-        ]
-      });
-  
-      await alert.present();
-    }
-
-    async editDogPrompt(dog, index) {
-      const alert = await this.alertController.create({
-        header: 'Edit Dog',
-        inputs: [
-          {
-            name: 'name',
-            type: 'text',
-            placeholder: 'Name',
-            value: dog.name
-          },
-          {
-            name: 'breed',
-            type: 'text',
-            placeholder: 'Breed',
-            value: dog.breed
-          },
-          {
-            name: 'gender',
-            type: 'text',
-            placeholder: 'Male/Female',
-            value: dog.gender
-          },
-          {
-            name: 'size',
-            type: 'text',
-            placeholder: 'Small/Medium/Large',
-            value: dog.size
-          },
-          {
-            name: 'age',
-            type: 'text',
-            placeholder: 'Age',
-            value: dog.age
-          },
-          {
-            name: 'about',
-            type: 'text',
-            placeholder: 'About your dog...'
-          },
-        ],
-        buttons: [
-          {
-            text: 'Cancel',
-            role: 'cancel',
-            cssClass: 'secondary',
-            handler: () => {
-              console.log('Confirm Cancel');
-            }
-          }, {
-            text: 'Ok',
-            handler: (dog) => {
-              console.log('Confirm Ok', dog);
-              this.myDogs[index] = dog;
-            }
-          }
-        ]
-      });
-  
-      await alert.present();
-    }
+    
 
   async presentToast(dog, index) {
     const toast = await this.toastController.create({
@@ -161,25 +57,11 @@ export class Tab1Page {
     });
     toast.present();
 
-    this.myDogs.splice(index, 1);
+    this.tab1Service.removeDog(dog, index);
   }
 
 
-  takePicture() {
-    const options: CameraOptions = {
-      quality: 100,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
-    }
-
-    this.camera.getPicture(options).then((imageData) => {
-      this.currentImage = 'data:image/jpeg;base64,' + imageData;
-    }, (err) => {
-     // Handle error
-     console.log("Camera issue:" + err);
-    });
-  }
+  
   
 
 }
