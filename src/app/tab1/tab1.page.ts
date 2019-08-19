@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AlertController } from '@ionic/angular';
-import { ToastController } from '@ionic/angular';
+import { Platform, ToastController } from '@ionic/angular';
 import { Tab1Service } from '../tab1.service';
 import { Tab1InputService } from '../tab1-input.service';
 import { PhotoService } from '../services/photo.service';
@@ -17,16 +17,27 @@ export class Tab1Page {
   title = "My Dogs"
   
 
-  constructor(public alertController: AlertController, public toastController: ToastController, public tab1Service: Tab1Service, public tab1InputService: Tab1InputService, public photoService: PhotoService, private storage: Storage) {}
+
+  constructor(private plt: Platform, public alertController: AlertController, public toastController: ToastController, public tab1Service: Tab1Service, public tab1InputService: Tab1InputService, public photoService: PhotoService, private storage: Storage) {
+  //this.plt.ready().then(() => {
+    //this.loadItems();
+  //});
+}
 
   ngOnInit() {
     this.photoService.loadSaved();
-    this.tab1Service.loadDogs();
+    this.tab1Service.getDogs();
   }
 
   loadDogs(){
-    return this.tab1Service.loadDogs();
+    return this.tab1Service.getDogs();
   }
+
+  //loadItems() {
+    //this.tab1Service.getDogs().then(() => {
+      //this.tab1Service.myDogs;
+    //});
+  //}
 
 
   addDog(){
@@ -45,10 +56,9 @@ export class Tab1Page {
     });
     toast.present();
     this.tab1InputService.dogPrompt(dog, index);
-
   }
-    
-    
+
+  
 
   async presentToast(dog, index) {
     const toast = await this.toastController.create({
@@ -59,9 +69,6 @@ export class Tab1Page {
 
     this.tab1Service.removeDog(dog, index);
   }
-
-
-  
-  
+ 
 
 }

@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
-// import { Firebase } from '@ionic-native/firebase/ngx';
-// import { FirebaseMessaging } from '@ionic-native/firebase-messaging/ngx';
-// import { FCM } from '@ionic-native/fcm/ngx';
+
 
 @Component({
   selector: 'app-tab2',
@@ -13,10 +11,11 @@ import { ToastController } from '@ionic/angular';
 export class Tab2Page {
 
   title = "Doggy Dashboard"
-  author = "Username"
+  author = "DogLover123"
   dashboardPosts = []
 
   constructor(public alertController: AlertController, public toastController: ToastController) {}
+
 
   async createPost() {
     const alert = await this.alertController.create({
@@ -102,34 +101,5 @@ export class Tab2Page {
 
     this.editPostPrompt(post, index);
   }
-
-
-  //these go into constructor once you get firebase working (private firebase: Firebase, private firebaseMessaging: FirebaseMessaging, private fcm: FCM)
-  // firebaseMessages(){
-  //   this.firebase.getToken()
-  //     .then(token => console.log(`The token is ${token}`)) // save the token server-side and use it to push notifications to this device
-  //     .catch(error => console.error('Error getting token', error));
-
-  //   this.firebase.onNotificationOpen()
-  //     .subscribe(data => console.log(`User opened a notification ${data}`));
-
-  //   this.firebase.onTokenRefresh()
-  //     .subscribe((token: string) => console.log(`Got a new token ${token}`));
-  // }
-
-
-  // myMessage(){
-  //   this.firebaseMessaging.logEvent('page_view', {page: "dashboard"})
-  //   .then((res: any) => console.log(res))
-  //   .catch((error: any) => console.error(error));
-  // }
-
-  // startTalking(){
-  //   this.fcm.subscribeToTopic('marketing');
-
-  //   this.fcm.getToken().then(token => {
-  //     backend.registerToken(token);
-  //   });
-  // }
 
 }

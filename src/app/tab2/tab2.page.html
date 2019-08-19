@@ -14,7 +14,11 @@
       <ion-item-sliding *ngFor = "let post of dashboardPosts; let i = index">
         <ion-item>
           <ion-label text-wrap>{{post.name}}</ion-label>
+          <ion-avatar slot="end">
+              <img src="/assets/icon/person.jpg">
+            </ion-avatar>
           <p>{{author}}</p>
+          <ion-datetime displayFormat="MMM DD, YYYY HH:mm"></ion-datetime>
         </ion-item>
         <ion-item-options side="end">
           <ion-item-option type="button" (click) = "editPost(post, i)" ion-button color="warning"><ion-icon name="create"></ion-icon>Edit</ion-item-option>

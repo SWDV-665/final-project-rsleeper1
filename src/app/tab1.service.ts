@@ -1,13 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 
+
+
+const DOG_KEY = 'myDogKey'
+
 @Injectable({
   providedIn: 'root'
 })
+
+
 export class Tab1Service {
 
 
-  myDogs = []
+  public myDogs: MyDogs[] = [];
+  
 
   constructor(private storage: Storage) { }
 
@@ -20,15 +27,30 @@ export class Tab1Service {
     this.storage.set('myDogs', this.myDogs);
   }
 
+  //addDog(dog) {
+    //this.myDogs.unshift({
+      //data: dog}); 
+    //this.storage.set(DOG_KEY, this.myDogs);  
+  //}
+
+
   editDog(index, dog){
     this.myDogs[index] = dog;
   }
+
 
   removeDog(dog, index){
     this.myDogs.splice(index, 1);
   }
 
-  loadDogs(){
-    this.storage.get('myDogs');
-  }
+  //getDogs() {
+    //this.storage.get(DOG_KEY).then((myDogs) => {
+      //this.myDogs = myDogs || [];
+    //});
+  //}
+
+}
+
+class MyDogs{
+  data: [];
 }
