@@ -6,6 +6,8 @@ import { Storage } from '@ionic/storage';
 @Injectable({
   providedIn: 'root'
 })
+
+//Input for adding a new dog service.
 export class Tab1InputService {
 
   constructor(public tab1Service: Tab1Service, public alertController: AlertController, private storage: Storage) { }

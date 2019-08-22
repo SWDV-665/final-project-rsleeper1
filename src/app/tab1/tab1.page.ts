@@ -12,6 +12,8 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
+
+//My Dogs Tab
 export class Tab1Page {
 
   title = "My Dogs"
