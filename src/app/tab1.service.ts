@@ -27,11 +27,6 @@ export class Tab1Service {
     this.storage.set('myDogs', this.myDogs);
   }
 
-  //addDog(dog) {
-    //this.myDogs.unshift({
-      //data: dog}); 
-    //this.storage.set(DOG_KEY, this.myDogs);  
-  //}
 
 
   editDog(index, dog){
@@ -43,11 +38,6 @@ export class Tab1Service {
     this.myDogs.splice(index, 1);
   }
 
-  //getDogs() {
-    //this.storage.get(DOG_KEY).then((myDogs) => {
-      //this.myDogs = myDogs || [];
-    //});
-  //}
 
 }
 

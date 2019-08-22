@@ -19,9 +19,7 @@ export class Tab1Page {
 
 
   constructor(private plt: Platform, public alertController: AlertController, public toastController: ToastController, public tab1Service: Tab1Service, public tab1InputService: Tab1InputService, public photoService: PhotoService, private storage: Storage) {
-  //this.plt.ready().then(() => {
-    //this.loadItems();
-  //});
+  
 }
 
   ngOnInit() {
@@ -32,13 +30,6 @@ export class Tab1Page {
   loadDogs(){
     return this.tab1Service.getDogs();
   }
-
-  //loadItems() {
-    //this.tab1Service.getDogs().then(() => {
-      //this.tab1Service.myDogs;
-    //});
-  //}
-
 
   addDog(){
     this.tab1InputService.dogPrompt();
